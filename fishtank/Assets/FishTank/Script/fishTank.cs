@@ -7,16 +7,9 @@ public class fishTank : MonoBehaviour {
         
 	public List<fishTankData> _fishdata; //存储点的信息
     public RectTransform pencil; //点的显示
-	public Canvas _canvas; //将pencil限定在fishCanvas中 并且传递照相机探测的参数
+	public Canvas _canvas; //需要fishCanvas的参数
 	private RectTransform _rectTransform; //_canvas 的Recttransform的信息
-	public Camera _camera;
-
-	//限定鼠标的位置
-	private float x_min;
-	private float x_max;
-	private float y_min;
-	private float y_max;
-
+	 
 	private float _size;
 	public float Size {
 		set{ 
@@ -42,53 +35,13 @@ public class fishTank : MonoBehaviour {
     void Awake(){
 		_fishdata = new List<fishTankData>();
 		//读取外部的size、color；
-
+		_rectTransform = _canvas.transform as RectTransform;
     }
-    
-    void Start(){
-        _rectTransform = _canvas.transform as RectTransform;
-
-		float width = _rectTransform.sizeDelta.x;
-		x_min = -Math.Abs(width/2);
-		x_max = Math.Abs(width/2);
-		y_min = -Math.Abs(_rectTransform.anchoredPosition.y);
-		y_max = Math.Abs(_rectTransform.anchoredPosition.y);
-
-    }
-
-	/*
-void Update(){
-            Vector2 pos;
-            Vector2 _pos = Vector2.zero;
-			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, Input.mousePosition, _camera, out pos))
-            {        
-				if(pos.x > x_min && pos.x < x_max){
-					_pos.x = pos.x;
-	            }
-				if(pos.y > y_min && pos.y < y_max){
-					_pos.y = pos.y;
-		        }
-				if (_pos.x != 0 && _pos.y != 0) {
-					pencil.anchoredPosition = _pos;
-					if(Input.GetMouseButton(0) || (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved))
-					{       
-						
-					  
-					}
-				}
-		        //Debug.Log(pos);
-			}  
-
-        }
-	*/
-    
-
-
-
+   
 
 	public void OnDraw(ColorPickClick sender)
 	{
-		var size2 = _canvas.GetComponent<RectTransform>().sizeDelta/2;
+		var size2 = _rectTransform.sizeDelta/2;
 		var pos = Vector2.zero;
 		pos.x = Mathf.Clamp(sender.ClickPoint.x, -size2.x, size2.x);
 		pos.y = Mathf.Clamp(sender.ClickPoint.y, -size2.y, size2.y);
@@ -96,7 +49,6 @@ void Update(){
 
 		UpdatePoint(pos);
 	}
-
 
 
 	public void UpdatePoint(Vector2 _pos)
