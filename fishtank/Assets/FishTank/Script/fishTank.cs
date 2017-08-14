@@ -56,7 +56,8 @@ public class fishTank : MonoBehaviour {
 
     }
 
-    void Update(){
+	/*
+void Update(){
             Vector2 pos;
             Vector2 _pos = Vector2.zero;
 			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, Input.mousePosition, _camera, out pos))
@@ -71,25 +72,45 @@ public class fishTank : MonoBehaviour {
 					pencil.anchoredPosition = _pos;
 					if(Input.GetMouseButton(0) || (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved))
 					{       
-						var clonePencil = (GameObject)Instantiate(pencil.gameObject,_canvas.transform.GetChild(0));
-						clonePencil.GetComponent<RectTransform>().anchoredPosition = _pos;
-
-						Debug.Log ("------------------------------current position : "+ _pos);
-						//在fishdata可添加位置信息 
-						//还需完成size信息的适配
-						//color的调节
-						//对接服务器 发送数据的时候需要id
-						fishTankData _data = new fishTankData ();
-						_data.position = _pos;
+						
 					  
 					}
 				}
 		        //Debug.Log(pos);
-			}
-
-           
-                 
+			}  
 
         }
+	*/
+    
+
+
+
+
+	public void OnDraw(ColorPickClick sender)
+	{
+		var size2 = _canvas.GetComponent<RectTransform>().sizeDelta/2;
+		var pos = Vector2.zero;
+		pos.x = Mathf.Clamp(sender.ClickPoint.x, -size2.x, size2.x);
+		pos.y = Mathf.Clamp(sender.ClickPoint.y, -size2.y, size2.y);
+		pencil.anchoredPosition = pos;
+
+		UpdatePoint(pos);
+	}
+
+
+
+	public void UpdatePoint(Vector2 _pos)
+	{
+		var clonePencil = (GameObject)Instantiate(pencil.gameObject,_canvas.transform.GetChild(0));
+		clonePencil.GetComponent<RectTransform>().anchoredPosition = _pos;
+
+		Debug.Log ("------------------------------current position : "+ _pos);
+		//在fishdata可添加位置信息 
+		//还需完成size信息的适配
+		//color的调节
+		//对接服务器 发送数据的时候需要id
+		fishTankData _data = new fishTankData ();
+		_data.position = _pos;
+	}
 	
 }
