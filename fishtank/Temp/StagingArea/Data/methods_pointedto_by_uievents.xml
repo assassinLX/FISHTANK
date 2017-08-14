@@ -1,0 +1,15 @@
+<linker>
+	<assembly fullname="Assembly-CSharp">
+		<type fullname="ColorPick">
+			<method name="OnStaurationClick"/>
+			<method name="OnHueClick"/>
+		</type>
+		<type fullname="fishTank">
+			<method name="OnDraw"/>
+		</type>
+		<type fullname="OnClick">
+			<method name="_buttonOnClick"/>
+			<method name="_buttonOnClick"/>
+		</type>
+	</assembly>
+</linker>
