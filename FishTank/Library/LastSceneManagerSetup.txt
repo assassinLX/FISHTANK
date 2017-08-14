@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/FishTank/Scene/one.unity
-  isLoaded: 1
-  isActive: 1
