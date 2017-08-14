@@ -9,6 +9,8 @@ public class fishTank : MonoBehaviour {
     public RectTransform pencil; //点的显示
 	public Canvas _canvas; //将pencil限定在fishCanvas中 并且传递照相机探测的参数
 	private RectTransform _rectTransform; //_canvas 的Recttransform的信息
+	public Camera _camera;
+
 	//限定鼠标的位置
 	private float x_min;
 	private float x_max;
@@ -57,7 +59,7 @@ public class fishTank : MonoBehaviour {
     void Update(){
             Vector2 pos;
             Vector2 _pos = Vector2.zero;
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, Input.mousePosition, _canvas.worldCamera, out pos))
+			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, Input.mousePosition, _camera, out pos))
             {        
 				if(pos.x > x_min && pos.x < x_max){
 					_pos.x = pos.x;
